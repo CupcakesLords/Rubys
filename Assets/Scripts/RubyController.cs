@@ -22,11 +22,14 @@ public class RubyController : MonoBehaviour
     Vector2 lookDirection = new Vector2(1, 0);
 
     public GameObject projectilePrefab;
-    
+    private AudioSource audioSource;
+    public AudioClip uponLaunch;
+
     void Start()
     {
         rigidbody2d = GetComponent<Rigidbody2D>();
         currentHealth = maxHealth;
+        audioSource = GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
     }
 
@@ -110,5 +113,12 @@ public class RubyController : MonoBehaviour
         projectile.Launch(lookDirection, 300);
 
         animator.SetTrigger("Launch");
+        audioSource.PlayOneShot(uponLaunch);
+    }
+
+    public void PlaySound(AudioClip clip)
+    {
+        //Debug.Log(audioSource == null);
+        audioSource.PlayOneShot(clip);
     }
 }
